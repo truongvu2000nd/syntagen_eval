@@ -105,6 +105,7 @@ train_dataloader = dict(
         data_root='',
         data_prefix=dict(
             img_path='image', seg_map_path='mask'),
+        ann_file='',
         pipeline=train_pipeline))
 val_dataloader = dict(
     batch_size=1,
