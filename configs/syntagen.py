@@ -1,7 +1,9 @@
 # model settings
 norm_cfg = dict(type='SyncBN', requires_grad=True)
+crop_size = (512, 512)
 data_preprocessor = dict(
     type='SegDataPreProcessor',
+    size=crop_size,
     mean=[123.675, 116.28, 103.53],
     std=[58.395, 57.12, 57.375],
     bgr_to_rgb=True,
@@ -29,7 +31,7 @@ model = dict(
         channels=512,
         dilations=(1, 12, 24, 36),
         dropout_ratio=0.1,
-        num_classes=19,
+        num_classes=21,
         norm_cfg=norm_cfg,
         align_corners=False,
         loss_decode=dict(
@@ -42,7 +44,7 @@ model = dict(
         num_convs=1,
         concat_input=False,
         dropout_ratio=0.1,
-        num_classes=19,
+        num_classes=21,
         norm_cfg=norm_cfg,
         align_corners=False,
         loss_decode=dict(
@@ -162,11 +164,3 @@ default_hooks = dict(
     checkpoint=dict(type='CheckpointHook', by_epoch=False, interval=1000),
     sampler_seed=dict(type='DistSamplerSeedHook'),
     visualization=dict(type='SegVisualizationHook'))
-
-# custom
-crop_size = (512, 512)
-data_preprocessor = dict(size=crop_size)
-model = dict(
-    data_preprocessor=data_preprocessor,
-    decode_head=dict(num_classes=21),
-    auxiliary_head=dict(num_classes=21))
